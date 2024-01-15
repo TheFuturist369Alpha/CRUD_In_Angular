@@ -33,6 +33,7 @@ namespace Commerce_API.Controllers.AccountController
             {
                 return false;
             }
+            
             return true;
         }
 

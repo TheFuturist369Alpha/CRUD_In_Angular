@@ -40,7 +40,8 @@ namespace Entities.DTOs
                 Email = Email,
                 PasswordHash = PassWord,
                 PhoneNumber = PhoneNumber,
-                roles = role
+                roles = role,
+                Remain_SignedIn = Remain_SignedIn
 
             };
 
