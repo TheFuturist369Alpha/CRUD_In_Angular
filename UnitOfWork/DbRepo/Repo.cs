@@ -67,11 +67,11 @@ namespace UnitOfWork.DbRepo
             return await _context.Users.ToListAsync();
         }
 
-        public async Task<PrimaryUser> GetUserByEmail(string email)
+        public async Task<PrimaryUser> GetUserByProperty(string property)
         {
-            if (email != null)
+            if (property != null)
             {
-                return await _context.Users.FindAsync(email);
+                return await _context.Users.FindAsync(property);
             }
             throw new ArgumentNullException();
         }

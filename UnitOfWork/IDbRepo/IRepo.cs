@@ -13,6 +13,6 @@ namespace UnitOfWork.IDbRepo
         public Task UpdateUser(PrimaryUser primaryUser);
         public Task<bool> DeleteUser(Guid? Id);
         public Task<List<PrimaryUser>> GetAllUsers();
-        public Task<PrimaryUser> GetUserByEmail(string email);
+        public Task<PrimaryUser> GetUserByProperty(string email);
     }
 }

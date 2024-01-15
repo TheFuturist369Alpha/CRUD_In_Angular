@@ -1,14 +1,15 @@
 ﻿using Entities.ApplicationUser;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.AccountManagerContracts
+namespace Services.AccountManager.AccountManagerContracts
 {
-    public interface ILogin
+    public interface ILoginManager
     {
-        public bool Login(PrimaryUser user);
+        public Task<bool> Login(LoginDTO user);
     }
 }
