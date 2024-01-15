@@ -67,18 +67,27 @@ namespace UnitOfWork.DbRepo
             return await _context.Users.ToListAsync();
         }
 
-        public async Task<PrimaryUser> GetUserByProperty(string property)
+        public async Task<PrimaryUser> GetUserById(Guid Id)
         {
-            if (property != null)
+            if (Id != null)
             {
-                return await _context.Users.FindAsync(property);
+                return await _context.Users.FindAsync(Id);
+            }
+            throw new ArgumentNullException();
+        }
+
+        public async Task<PrimaryUser> GetUserByEmail(string email)
+        {
+            if (email != null)
+            {
+                return await _context.Users.FirstOrDefaultAsync(arg=>arg.Email==email);
             }
             throw new ArgumentNullException();
         }
 
         public async Task UpdateUser(PrimaryUser primaryUser)
         {
-          PrimaryUser PUser= await _context.Users.FindAsync(primaryUser.Id);
+          PrimaryUser PUser= await GetUserByEmail(primaryUser.Email);
             if (PUser==null)
             {
                 throw new ArgumentException("User does not exist");

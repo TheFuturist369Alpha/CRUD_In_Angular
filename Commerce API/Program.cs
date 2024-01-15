@@ -1,5 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using GenDataBase;
+using Services.AccountManager;
+using Services.AccountManager.AccountManagerContracts;
+using Services.AccountManager.PrimaryUsersAccountManagers;
+using UnitOfWork.DbRepo;
+using UnitOfWork.IDbRepo;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,6 +18,11 @@ builder.Services.AddDbContext<GenDbContext>(opts =>
 {
     opts.UseSqlServer(builder.Configuration["ConnectionStrings:DbConnect"]);
 });
+builder.Services.AddScoped<ISigninManager, SigninManager>();
+builder.Services.AddScoped<ILoginManager, LoginManager>();
+builder.Services.AddScoped<IUpdateAccountManager, UpdateManager>();
+builder.Services.AddScoped<IDeleteAccountManager, DeleteAccountManager>();
+builder.Services.AddScoped<IRepo, Repo>();
 
 var app = builder.Build();
 
@@ -25,6 +36,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
 
 app.MapControllers();
 

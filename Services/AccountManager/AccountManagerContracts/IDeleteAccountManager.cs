@@ -8,6 +8,6 @@ namespace Services.AccountManager.AccountManagerContracts
 {
     public interface IDeleteAccountManager
     {
-        public Task<bool> DeleteAccount(string password);
+        public Task<bool> DeleteAccount(Guid Id);
     }
 }

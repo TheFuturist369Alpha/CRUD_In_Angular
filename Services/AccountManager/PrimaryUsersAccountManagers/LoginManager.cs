@@ -9,6 +9,7 @@ using Entities.DTOs;
 using Services.AccountManager.AccountManagerContracts;
 using UnitOfWork;
 using UnitOfWork.DbRepo;
+using Entities.Other;
 using UnitOfWork.IDbRepo;
 
 namespace Services.AccountManager.PrimaryUsersAccountManagers
@@ -20,14 +21,14 @@ namespace Services.AccountManager.PrimaryUsersAccountManagers
         {
             _repo = repo;
         }
-        public async Task<bool> Login(LoginDTO user)
+        public async Task<bool> Login(LoginEntity user)
         {
             if (user == null)
             {
                 return false;
             }
 
-            PrimaryUser U1 = await _repo.GetUserByProperty(user.Email);
+            PrimaryUser U1 = await _repo.GetUserByEmail(user.Email);
             if (U1 == null)
             {
                 return false;

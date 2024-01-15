@@ -1,5 +1,6 @@
 ﻿using Entities.ApplicationUser;
 using Entities.DTOs;
+using Entities.Other;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace Services.AccountManager.AccountManagerContracts
 {
     public interface ILoginManager
     {
-        public Task<bool> Login(LoginDTO user);
+        public Task<bool> Login(LoginEntity user);
     }
 }

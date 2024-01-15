@@ -17,13 +17,13 @@ namespace Services.AccountManager.PrimaryUsersAccountManagers
             _repo = repo;
         }
 
-        public async Task<bool> DeleteAccount(string password)
+        public async Task<bool> DeleteAccount(Guid Id)
         {
-            if (password == null)
+            if (Id == null)
             {
                 return false;
             }
-            PrimaryUser user = await _repo.GetUserByProperty(password);
+            PrimaryUser user = await _repo.GetUserById(Id);
             if (user != null) 
             {
                 await _repo.DeleteUser(user.Id); return true;

@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Threading.Tasks;
 
 namespace Entities.DTOs
 {
     public class SignInDTO
     {
-
+        [BindNever]
         public Guid Id { get; set; }
         [Required(ErrorMessage = "This field is required")]
         public string First_Name { get; set; }

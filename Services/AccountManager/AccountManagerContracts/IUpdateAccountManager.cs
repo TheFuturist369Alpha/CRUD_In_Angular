@@ -9,6 +9,6 @@ namespace Services.AccountManager.AccountManagerContracts
 {
     public interface IUpdateAccountManager
     {
-        public Task<bool> UpdateUser(string password, SignInDTO replace);
+        public Task<bool> UpdateUser(Guid Id, SignInDTO replace);
     }
 }

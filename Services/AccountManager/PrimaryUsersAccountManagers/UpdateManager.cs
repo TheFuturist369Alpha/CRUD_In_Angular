@@ -19,12 +19,12 @@ namespace Services.AccountManager.PrimaryUsersAccountManagers
             _repo = repo;
         }
 
-        public async Task<bool> UpdateUser(string password,SignInDTO replace)
+        public async Task<bool> UpdateUser(Guid Id,SignInDTO replace)
         {
-            if (password == null || replace==null) {
+            if (Id == null || replace==null) {
                 return false;
                     }
-            PrimaryUser user = await _repo.GetUserByProperty(password);
+            PrimaryUser user = await _repo.GetUserById(Id);
             if (user != null){
                     await _repo.UpdateUser(replace.ToPrimaryUser());
                 return true;
