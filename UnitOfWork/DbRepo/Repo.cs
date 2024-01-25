@@ -1,4 +1,5 @@
 ﻿using Entities.ApplicationUser;
+using Entities.Other;
 using GenDataBase;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -58,13 +59,14 @@ namespace UnitOfWork.DbRepo
 
         }
 
-        public async Task<List<PrimaryUser>?> GetAllUsers()
+        public async Task<List<UserToString>?> GetAllUsers()
         {
             if(_context.Users==null || _context.Users.ToList().Count == 0)
             {
-                return new List<PrimaryUser>();
+                return new List<UserToString>();
             }
-            return await _context.Users.ToListAsync();
+            var i= await _context.Users.Select(obj=>obj.ToString()).ToListAsync();
+            return i;
         }
 
         public async Task<PrimaryUser> GetUserById(Guid Id)

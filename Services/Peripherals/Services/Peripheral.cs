@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnitOfWork.IDbRepo;
 using Services.Peripherals.Contracts;
+using Entities.Other;
 
 namespace Services.Peripherals.Services
 {
@@ -17,7 +18,7 @@ namespace Services.Peripherals.Services
             this._repo = _repo;
         }
 
-        public async Task<List<PrimaryUser>> GetUsers()
+        public async Task<List<UserToString>> GetUsers()
         {
             return await _repo.GetAllUsers();
         }

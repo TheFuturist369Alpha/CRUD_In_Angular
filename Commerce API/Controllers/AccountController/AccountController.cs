@@ -6,6 +6,8 @@ using Services.AccountManager.AccountManagerContracts;
 using Entities.ApplicationUser;
 using Services.Peripherals.Services;
 using Services.Peripherals.Contracts;
+using Entities.Other;
+using System.Linq;
 
 namespace Commerce_API.Controllers.AccountController
 {
@@ -69,7 +71,7 @@ namespace Commerce_API.Controllers.AccountController
 
         [HttpGet]
         [Route("users")]
-        public async Task<ActionResult<List<PrimaryUser>?>> GetPrimaryUsers()
+        public async Task<ActionResult<List<UserToString>?>> GetPrimaryUsers()
         {
             return await _getterService.GetUsers();
         }

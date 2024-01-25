@@ -32,28 +32,28 @@
                     <tr *ngFor="let account of accounts; let i=index">
                         <td> {{i+1}}</td>
                         <td [formGroupName]="i">
-                            <input type="text" formControlName="Id" [ngClass]="{'border-less-textbox':account.Id!==accoutId,
-                        'form-input':account.Id==accoutId}" />
+                            <input type="text" formControlName="ModelId" [ngClass]="{'border-less-textbox':account.ModelId!==accoutId,
+                        'form-input':account.ModelId==accoutId}" />
                         </td>
                         <td [formGroupName]="i">
-                            <input type="text" formControlName="first_Name" [ngClass]="{'border-less-textbox':account.Id!==accoutId,
-                        'form-input':account.Id==accoutId}" />
+                            <input type="text" formControlName="first_Name" [ngClass]="{'border-less-textbox':account.ModelId!==accoutId,
+                        'form-input':account.ModelId==accoutId}" />
                         </td>
                         <td [formGroupName]="i">
-                            <input type="text" formControlName="last_Name" [ngClass]="{'border-less-textbox':account.Id!==accoutId,
-                        'form-input':account.Id==accoutId}" />
+                            <input type="text" formControlName="last_Name" [ngClass]="{'border-less-textbox':account.ModelId!==accoutId,
+                        'form-input':account.ModelId==accoutId}" />
                         </td>
                         <td [formGroupName]="i">
-                            <input type="text" formControlName="email" [ngClass]="{'border-less-textbox':account.Id!==accoutId,
-                        'form-input':account.Id==accoutId}" />
+                            <input type="text" formControlName="email" [ngClass]="{'border-less-textbox':account.ModelId!==accoutId,
+                        'form-input':account.ModelId==accoutId}" />
                         </td>
                         <td [formGroupName]="i">
-                            <input type="text" formControlName="passwordHash" [ngClass]="{'border-less-textbox':account.Id!==accoutId,
-                        'form-input':account.Id==accoutId}" />
+                            <input type="text" formControlName="passwordHash" [ngClass]="{'border-less-textbox':account.ModelId!==accoutId,
+                        'form-input':account.ModelId==accoutId}" />
                         </td>
                         <td>
-                            <button style="width:200px;" class="button button-blue-back" (click)="onEdit(account)" *ngIf="account.Id!==accoutId">Edit</button>
-                            <button style="width:200px;" class="button button-blue-back" (click)="onUpgrade(account,i)" *ngIf="account.Id==accoutId">Upgrade</button>
+                            <button style="width:200px;" class="button button-blue-back" (click)="onEdit(account)" *ngIf="account.ModelId!==accoutId">Edit</button>
+                            <button style="width:200px;" class="button button-blue-back" (click)="onUpgrade(account,i)" *ngIf="account.ModelId==accoutId">Upgrade</button>
                         </td>
                     </tr>
                 </tbody>
@@ -94,7 +94,7 @@
                             </label>
                             <input type="text" class="form-input" formControlName="email" />
                             <span class="text-red" *ngIf="isFormSubmitted && (postAccountControl[2].errors?.['required'])">This field is required</span>
-                            <span class="text-red" *ngIf="isFormSubmitted && (postAccountControl[3].errors?.['email'])">Email not in the right format</span>
+                            <span class="text-red" *ngIf="isFormSubmitted && (postAccountControl[2].errors?.['email'])">Email not in the right format</span>
                         </div>
                     </div>
 

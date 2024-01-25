@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Entities.Enums;
 using System.ComponentModel.DataAnnotations;
+using Entities.Other;
 
 namespace Entities.ApplicationUser
 {
@@ -15,6 +16,18 @@ namespace Entities.ApplicationUser
         public bool Remain_SignedIn { get; set; }
         
         public Roles roles { get; set; }
+
+        public UserToString ToString()
+        {
+            return new UserToString()
+            {
+                Id = Id.ToString(),
+                First_Name = First_Name,
+                Last_Name = Last_Name,
+                Email = Email,
+                PasswordHash = PasswordHash,
+            };
+        }
         
 
     }

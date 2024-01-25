@@ -33,9 +33,10 @@ export class AccountComponent {
     this.service.GetAccounts().subscribe({
       next: (response: Models[]) => {
         this.accounts = response;
+        console.log(this.accounts[0].ModelId+", "+ this.accounts[0].first_Name);
         this.accounts.forEach(account => {
           (this.putAccountForm.get("Accounts") as FormArray).push(new FormGroup({
-            Id: new FormControl(account.Id, [Validators.required]),
+            ModelId: new FormControl(account.ModelId, [Validators.required]),
             first_Name: new FormControl(account.first_Name, [Validators.required]),
             last_Name: new FormControl(account.last_Name, [Validators.required]),
             email: new FormControl(account.email, [Validators.required]),
@@ -66,7 +67,7 @@ export class AccountComponent {
 
 
   public onEdit(acc: Models) {
-    this.accoutId = acc.Id;
+    this.accoutId = acc.ModelId;
   }
   public onUpgrade(acc: Models, i: number) {
 
@@ -78,7 +79,7 @@ export class AccountComponent {
     this.service.PostAccount(this.postAccountForm.value).subscribe({
       next: (response: Models) => {
         console.log(response);
-        this.accounts.push(new Models(response.Id,response.first_Name, response.passwordHash, response.last_Name, response.email, response.remain_SignedIn))
+        this.accounts.push(new Models(response.ModelId,response.first_Name, response.passwordHash, response.last_Name, response.email, response.remain_SignedIn))
         this.postAccountForm.reset();
         this.isFormSubmitted = false;
       },
