@@ -9,9 +9,7 @@
                         <th>
                             s/n
                         </th>
-                        <th>
-                            ID
-                        </th>
+                        
                         <th>
                             First Name
                         </th>
@@ -31,29 +29,30 @@
                 <tbody formArrayName="Accounts">
                     <tr *ngFor="let account of accounts; let i=index">
                         <td> {{i+1}}</td>
+
                         <td [formGroupName]="i">
-                            <input type="text" formControlName="ModelId" [ngClass]="{'border-less-textbox':account.ModelId!==accoutId,
-                        'form-input':account.ModelId==accoutId}" />
+                            <input type="text" formControlName="first_Name" [ngClass]="{'border-less-textbox':account.modelId!==accoutId,
+                        'form-input':account.modelId==accoutId}" />
                         </td>
                         <td [formGroupName]="i">
-                            <input type="text" formControlName="first_Name" [ngClass]="{'border-less-textbox':account.ModelId!==accoutId,
-                        'form-input':account.ModelId==accoutId}" />
+                            <input type="text" formControlName="last_Name" [ngClass]="{'border-less-textbox':account.modelId!==accoutId,
+                        'form-input':account.modelId==accoutId}" />
                         </td>
                         <td [formGroupName]="i">
-                            <input type="text" formControlName="last_Name" [ngClass]="{'border-less-textbox':account.ModelId!==accoutId,
-                        'form-input':account.ModelId==accoutId}" />
+                            <input type="text" formControlName="email" [ngClass]="{'border-less-textbox':account.modelId!==accoutId,
+                        'form-input':account.modelId==accoutId}" />
                         </td>
                         <td [formGroupName]="i">
-                            <input type="text" formControlName="email" [ngClass]="{'border-less-textbox':account.ModelId!==accoutId,
-                        'form-input':account.ModelId==accoutId}" />
+                            <input type="text" formControlName="passwordHash" [ngClass]="{'border-less-textbox':account.modelId!==accoutId,
+                        'form-input':account.modelId==accoutId}" />
                         </td>
                         <td [formGroupName]="i">
-                            <input type="text" formControlName="passwordHash" [ngClass]="{'border-less-textbox':account.ModelId!==accoutId,
-                        'form-input':account.ModelId==accoutId}" />
+                            <input type="text" formControlName="remain_SignedIn" [ngClass]="{'border-less-textbox':account.modelId!==accoutId,
+                        'form-input':account.modelId==accoutId}" />
                         </td>
                         <td>
-                            <button style="width:200px;" class="button button-blue-back" (click)="onEdit(account)" *ngIf="account.ModelId!==accoutId">Edit</button>
-                            <button style="width:200px;" class="button button-blue-back" (click)="onUpgrade(account,i)" *ngIf="account.ModelId==accoutId">Upgrade</button>
+                            <button style="width:200px;" class="button button-blue-back" (click)="onEdit(account)" *ngIf="account.modelId!==accoutId">Edit</button>
+                            <button style="width:200px;" class="button button-blue-back" (click)="onUpgrade(account,i)" *ngIf="account.modelId==accoutId">Upgrade</button>
                         </td>
                     </tr>
                 </tbody>

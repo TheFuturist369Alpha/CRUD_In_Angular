@@ -28,7 +28,7 @@ export class AccountServiceService {
   public UpdateAccount(model: Models): Observable<string>{
     let headers = new HttpHeaders();
     headers = headers.append("Authorization", "Bearer mytoken");
-    return this.httpClient.put<string>(`${domain}/${model.ModelId}`, model, { headers: headers });
+    return this.httpClient.put<string>(`${domain}/${model.modelId}`, model, { headers: headers });
 
   }
 }

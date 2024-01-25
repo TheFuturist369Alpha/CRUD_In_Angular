@@ -33,14 +33,18 @@ export class AccountComponent {
     this.service.GetAccounts().subscribe({
       next: (response: Models[]) => {
         this.accounts = response;
-        console.log(this.accounts[0].ModelId+", "+ this.accounts[0].first_Name);
+        console.log(this.accounts[0]);
+        console.log(this.accounts[1].email);
+        console.log((this.accounts[1]).modelId);
+        
         this.accounts.forEach(account => {
           (this.putAccountForm.get("Accounts") as FormArray).push(new FormGroup({
-            ModelId: new FormControl(account.ModelId, [Validators.required]),
-            first_Name: new FormControl(account.first_Name, [Validators.required]),
-            last_Name: new FormControl(account.last_Name, [Validators.required]),
-            email: new FormControl(account.email, [Validators.required]),
-            passwordHash: new FormControl(account.passwordHash, [Validators.required])
+            
+            first_Name: new FormControl({ value: account.first_Name, disabled:true }, [Validators.required]),
+            last_Name: new FormControl({ value: account.last_Name, disabled: true }, [Validators.required]),
+            email: new FormControl({ value: account.email, disabled: true }, [Validators.required]),
+            passwordHash: new FormControl({ value: account.passwordHash, disabled: true }, [Validators.required]),
+            remain_SignedIn: new FormControl({ value: account.remain_SignedIn, disabled: true }, [Validators.required]),
 
           }));
         });
@@ -67,7 +71,7 @@ export class AccountComponent {
 
 
   public onEdit(acc: Models) {
-    this.accoutId = acc.ModelId;
+    this.accoutId = acc.modelId;
   }
   public onUpgrade(acc: Models, i: number) {
 
@@ -79,7 +83,7 @@ export class AccountComponent {
     this.service.PostAccount(this.postAccountForm.value).subscribe({
       next: (response: Models) => {
         console.log(response);
-        this.accounts.push(new Models(response.ModelId,response.first_Name, response.passwordHash, response.last_Name, response.email, response.remain_SignedIn))
+        this.accounts.push(new Models(response.modelId,response.first_Name, response.passwordHash, response.last_Name, response.email, response.remain_SignedIn))
         this.postAccountForm.reset();
         this.isFormSubmitted = false;
       },
