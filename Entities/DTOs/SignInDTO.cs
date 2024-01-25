@@ -15,6 +15,7 @@ namespace Entities.DTOs
         [BindNever]
         public Guid Id { get; set; }
         [Required(ErrorMessage = "This field is required")]
+        
         public string First_Name { get; set; }
         [Required(ErrorMessage = "This field is required")]
         public string Last_Name { get; set; }
@@ -24,10 +25,8 @@ namespace Entities.DTOs
         public string Email { get; set; }
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
-        public string PassWord { get; set; }
-        [Required(ErrorMessage = "This field is required")]
-        [DataType(DataType.PhoneNumber)]
-        public string PhoneNumber { get; set; }
+        public string PassWordHash { get; set; }
+       
         public bool Remain_SignedIn { get; set; } = false;
 
         public PrimaryUser ToPrimaryUser(Roles role)
@@ -38,8 +37,8 @@ namespace Entities.DTOs
                 First_Name = First_Name,
                 Last_Name = Last_Name,
                 Email = Email,
-                PasswordHash = PassWord,
-                PhoneNumber = PhoneNumber,
+                PasswordHash = PassWordHash,
+               
                 roles = role,
                 Remain_SignedIn = Remain_SignedIn
 
@@ -55,8 +54,8 @@ namespace Entities.DTOs
                 First_Name = First_Name,
                 Last_Name = Last_Name,
                 Email = Email,
-                PasswordHash = PassWord,
-                PhoneNumber = PhoneNumber,
+                PasswordHash = PassWordHash,
+                
 
 
             };

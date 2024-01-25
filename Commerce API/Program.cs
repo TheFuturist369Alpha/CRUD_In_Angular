@@ -5,6 +5,8 @@ using Services.AccountManager.AccountManagerContracts;
 using Services.AccountManager.PrimaryUsersAccountManagers;
 using UnitOfWork.DbRepo;
 using UnitOfWork.IDbRepo;
+using Services.Peripherals.Contracts;
+using Services.Peripherals.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,13 +18,24 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<GenDbContext>(opts =>
 {
-    opts.UseSqlServer(builder.Configuration["ConnectionStrings:DbConnect"]);
+    opts.UseSqlServer(builder.Configuration["ConnectionStrings:Db2Connect"]);
 });
+builder.Services.AddScoped<ISigninManager, SigninManager>();
 builder.Services.AddScoped<ISigninManager, SigninManager>();
 builder.Services.AddScoped<ILoginManager, LoginManager>();
 builder.Services.AddScoped<IUpdateAccountManager, UpdateManager>();
 builder.Services.AddScoped<IDeleteAccountManager, DeleteAccountManager>();
 builder.Services.AddScoped<IRepo, Repo>();
+builder.Services.AddScoped<IPeripherals, Peripheral>();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(build =>
+    {
+        build.WithOrigins(builder.Configuration.GetSection("AllowedOrigins").Get<string[]>());
+        build.WithHeaders("Authorization", "origin", "accept", "content-type");
+    });
+
+});
 
 var app = builder.Build();
 
@@ -34,6 +47,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();
+app.UseCors();
 
 app.UseAuthorization();
 

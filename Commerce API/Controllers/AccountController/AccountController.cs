@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Services.AccountManager;
 using Entities.DTOs;
 using Services.AccountManager.AccountManagerContracts;
+using Entities.ApplicationUser;
+using Services.Peripherals.Services;
+using Services.Peripherals.Contracts;
 
 namespace Commerce_API.Controllers.AccountController
 {
@@ -14,14 +17,17 @@ namespace Commerce_API.Controllers.AccountController
         private readonly ISigninManager _signinManager;
         private readonly IUpdateAccountManager _updateAccountManager;
         private readonly IDeleteAccountManager _deleteAccountManager;
+        private readonly IPeripherals _getterService;
 
         public AccountController(ILoginManager logger, ISigninManager signinManager,
-            IUpdateAccountManager updateAccountManager, IDeleteAccountManager deleteAccountManager)
+            IUpdateAccountManager updateAccountManager, IDeleteAccountManager deleteAccountManager,
+            IPeripherals getterService)
         {
             _logger = logger;
             _signinManager = signinManager;
             _updateAccountManager = updateAccountManager;
             _deleteAccountManager = deleteAccountManager;
+            _getterService = getterService;
         }
 
 
@@ -33,13 +39,13 @@ namespace Commerce_API.Controllers.AccountController
             {
                 return false;
             }
-            
+
             return true;
         }
 
 
-        [HttpPost("signin/{First_Name}/{Last_Name}/{Email}/{Password}/{PhoneNumber}/{Remain_SignedIn}")]
-        public async Task<IActionResult> SignIn(SignInDTO signin)
+        [HttpPost("signIn")]
+        public async Task<ActionResult<PrimaryUser>> SignIn(SignInDTO signin)
         {
             if (signin == null)
             {
@@ -50,14 +56,30 @@ namespace Commerce_API.Controllers.AccountController
             {
                 await _signinManager.SignIn(signin);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 if (ex.Message == "Email already exists")
                 {
                     return BadRequest(ex.Message);
                 }
             }
-            return Ok();
+            return signin.ToPrimaryUser();
+
+        }
+
+        [HttpGet]
+        [Route("users")]
+        public async Task<ActionResult<List<PrimaryUser>?>> GetPrimaryUsers()
+        {
+            return await _getterService.GetUsers();
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<ActionResult<string>> AccountUpdate(string id, SignInDTO user)
+        {
+            await _updateAccountManager.UpdateUser(Guid.Parse(id), user);
+            return id;
 
         }
     }

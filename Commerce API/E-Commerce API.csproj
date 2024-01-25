@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Client App\**" />
+    <Content Remove="Client App\**" />
+    <EmbeddedResource Remove="Client App\**" />
+    <None Remove="Client App\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.5">
       <PrivateAssets>all</PrivateAssets>
@@ -22,6 +29,10 @@
     <ProjectReference Include="..\GenDataBase\GenDataBase.csproj" />
     <ProjectReference Include="..\Services\Services.csproj" />
     <ProjectReference Include="..\UnitOfWork\UnitOfWork.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="AccountManagerUI\" />
   </ItemGroup>
 
 </Project>

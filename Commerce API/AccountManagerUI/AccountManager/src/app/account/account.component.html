@@ -1,0 +1,123 @@
+<h2>Accounts</h2>
+<div class="flex">
+    <div class="flex-1">
+        <div class="table-container">
+            <table class="table w-100" [formGroup]="putAccountForm">
+
+                <thead>
+                    <tr>
+                        <th>
+                            s/n
+                        </th>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            First Name
+                        </th>
+                        <th>
+                            Last Name
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>Password</th>
+                        <th>
+                            Remain Signed in
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody formArrayName="Accounts">
+                    <tr *ngFor="let account of accounts; let i=index">
+                        <td> {{i+1}}</td>
+                        <td [formGroupName]="i">
+                            <input type="text" formControlName="Id" [ngClass]="{'border-less-textbox':account.Id!==accoutId,
+                        'form-input':account.Id==accoutId}" />
+                        </td>
+                        <td [formGroupName]="i">
+                            <input type="text" formControlName="first_Name" [ngClass]="{'border-less-textbox':account.Id!==accoutId,
+                        'form-input':account.Id==accoutId}" />
+                        </td>
+                        <td [formGroupName]="i">
+                            <input type="text" formControlName="last_Name" [ngClass]="{'border-less-textbox':account.Id!==accoutId,
+                        'form-input':account.Id==accoutId}" />
+                        </td>
+                        <td [formGroupName]="i">
+                            <input type="text" formControlName="email" [ngClass]="{'border-less-textbox':account.Id!==accoutId,
+                        'form-input':account.Id==accoutId}" />
+                        </td>
+                        <td [formGroupName]="i">
+                            <input type="text" formControlName="passwordHash" [ngClass]="{'border-less-textbox':account.Id!==accoutId,
+                        'form-input':account.Id==accoutId}" />
+                        </td>
+                        <td>
+                            <button style="width:200px;" class="button button-blue-back" (click)="onEdit(account)" *ngIf="account.Id!==accoutId">Edit</button>
+                            <button style="width:200px;" class="button button-blue-back" (click)="onUpgrade(account,i)" *ngIf="account.Id==accoutId">Upgrade</button>
+                        </td>
+                    </tr>
+                </tbody>
+
+
+            </table>
+
+        </div>
+    </div>
+    <div class="flex-1">
+        <div class="form-container">
+            <h2>Add an account</h2>
+            <form [formGroup]="postAccountForm" (ngSubmit)="OnSubmit()">
+                <div class="form-field flex">
+                    <div class="w-25">
+                        <label for="first_Name" class="form-label pt">
+                            First Name
+                        </label>
+                        <input type="text" class="form-input" formControlName="first_Name" />
+                        <span class="text-red" *ngIf="isFormSubmitted && (postAccountControl[0].errors?.['required'])">This field is required</span>
+                    </div>
+                    </div>
+
+                    <div class="form-field flex">
+                        <div class="w-25">
+                            <label for="last_Name" class="form-label pt">
+                                Last Name
+                            </label>
+                            <input type="text" class="form-input" formControlName="last_Name" />
+                            <span class="text-red" *ngIf="isFormSubmitted &&( postAccountControl[1].errors?.['required'])">This field is required</span>
+                        </div>
+                    </div>
+
+                    <div class="form-field flex">
+                        <div class="w-25">
+                            <label for="email" class="form-label pt">
+                                Email
+                            </label>
+                            <input type="text" class="form-input" formControlName="email" />
+                            <span class="text-red" *ngIf="isFormSubmitted && (postAccountControl[2].errors?.['required'])">This field is required</span>
+                            <span class="text-red" *ngIf="isFormSubmitted && (postAccountControl[3].errors?.['email'])">Email not in the right format</span>
+                        </div>
+                    </div>
+
+                    <div class="form-field flex">
+                        <div class="w-25">
+                            <label for="passwordHash" class="form-label pt">
+                                Password
+                            </label>
+                            <input type="text" class="form-input" formControlName="passwordHash" />
+                            <span class="text-red" *ngIf="isFormSubmitted && (postAccountControl[3].errors?.['required'])">This field is required</span>
+                            <span class="text-red" *ngIf="isFormSubmitted && (postAccountControl[3].errors?.['maxLength'])">Minimum of 8 characters</span>
+                           
+                        </div>
+                        </div>
+                        <div class="form-field flex">
+                            <div class="w-25">
+                            </div>
+                            <div class="flex-1">
+                                <button class="button button-green-back">Create</button>
+                            </div>
+                        </div>
+
+</form>
+        </div>
+    </div>
+</div>

@@ -95,7 +95,7 @@ namespace UnitOfWork.DbRepo
             PUser.Email = primaryUser.Email;
             PUser.First_Name=primaryUser.First_Name;
             PUser.Last_Name=primaryUser.Last_Name;
-            PUser.PhoneNumber = primaryUser.PhoneNumber;
+            
             PUser.PasswordHash = primaryUser.PasswordHash;
             await _context.SaveChangesAsync();
         }

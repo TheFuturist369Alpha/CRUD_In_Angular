@@ -5,7 +5,7 @@ using System.Reflection.Emit;
 
 namespace GenDataBase
 {
-    public class GenDbContext:IdentityDbContext
+    public class GenDbContext:DbContext
     {
         public virtual DbSet<PrimaryUser> Users { get; set; }
         public GenDbContext(DbContextOptions<GenDbContext> options) : base(options)
@@ -25,6 +25,8 @@ namespace GenDataBase
                Email="ben10@gmail.com",
                roles=Entities.Enums.Roles.PrimaryUser,
                PasswordHash="Paashw",
+               Remain_SignedIn=true
+           
                
             });
         }
