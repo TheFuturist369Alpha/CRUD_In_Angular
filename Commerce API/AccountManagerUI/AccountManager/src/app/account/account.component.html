@@ -32,28 +32,31 @@
 
                         <td [formGroupName]="i">
                             <input type="text" formControlName="first_Name" [ngClass]="{'border-less-textbox':account.modelId!==accoutId,
-                        'form-input':account.modelId==accoutId}" />
+                        'form-input':account.modelId==accoutId}" [disableControl]="account.modelId!=accoutId" />
                         </td>
                         <td [formGroupName]="i">
                             <input type="text" formControlName="last_Name" [ngClass]="{'border-less-textbox':account.modelId!==accoutId,
-                        'form-input':account.modelId==accoutId}" />
+                        'form-input':account.modelId==accoutId}" [disableControl]="account.modelId!=accoutId" />
                         </td>
                         <td [formGroupName]="i">
                             <input type="text" formControlName="email" [ngClass]="{'border-less-textbox':account.modelId!==accoutId,
-                        'form-input':account.modelId==accoutId}" />
+                        'form-input':account.modelId==accoutId}" [disableControl]="account.modelId!=accoutId" />
                         </td>
                         <td [formGroupName]="i">
                             <input type="text" formControlName="passwordHash" [ngClass]="{'border-less-textbox':account.modelId!==accoutId,
-                        'form-input':account.modelId==accoutId}" />
+                        'form-input':account.modelId==accoutId}" [disableControl]="account.modelId!=accoutId" />
                         </td>
                         <td [formGroupName]="i">
-                            <input type="text" formControlName="remain_SignedIn" [ngClass]="{'border-less-textbox':account.modelId!==accoutId,
-                        'form-input':account.modelId==accoutId}" />
+                            <input type="checkbox" class="blue-back" formControlName="remain_SignedIn" [disableControl]="account.modelId!=accoutId" />
                         </td>
                         <td>
-                            <button style="width:200px;" class="button button-blue-back" (click)="onEdit(account)" *ngIf="account.modelId!==accoutId">Edit</button>
-                            <button style="width:200px;" class="button button-blue-back" (click)="onUpgrade(account,i)" *ngIf="account.modelId==accoutId">Upgrade</button>
+                            <button style="width:200px;" class="button button-blue-back" (click)="onEdit(account)" *ngIf="account.modelId!=accoutId" type="button">Edit</button>
+                            <button style="width:200px;" class="button button-blue-back" (click)="onUpgrade(i)" *ngIf="account.modelId==accoutId" type="submit">Upgrade</button>
+                            
                         </td>
+                        <td>
+                            <button style="width:200px;" class="button button-red-back ml" (click)="onDelete(i)" type="button">Delete</button>
+                            </td>
                     </tr>
                 </tbody>
 

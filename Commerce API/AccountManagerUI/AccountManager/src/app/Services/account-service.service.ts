@@ -31,4 +31,11 @@ export class AccountServiceService {
     return this.httpClient.put<string>(`${domain}/${model.modelId}`, model, { headers: headers });
 
   }
+
+  public DeleteAccount(id:string|null): Observable<boolean> {
+    let headers = new HttpHeaders();
+    headers = headers.append("Authorization", "Bearer mytoken");
+    return this.httpClient.delete<boolean>(`${domain}/${id}`,{ headers: headers });
+
+  }
 }

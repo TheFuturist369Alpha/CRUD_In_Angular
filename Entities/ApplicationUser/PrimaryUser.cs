@@ -26,6 +26,7 @@ namespace Entities.ApplicationUser
                 Last_Name = Last_Name,
                 Email = Email,
                 PasswordHash = PasswordHash,
+                Remain_SignedIn = Remain_SignedIn
             };
         }
         

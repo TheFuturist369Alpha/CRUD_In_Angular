@@ -12,8 +12,8 @@ namespace Entities.DTOs
 {
     public class SignInDTO
     {
-        [BindNever]
-        public Guid Id { get; set; }
+        
+        public Guid ModelId { get; set; }
         [Required(ErrorMessage = "This field is required")]
         
         public string First_Name { get; set; }
@@ -25,19 +25,19 @@ namespace Entities.DTOs
         public string Email { get; set; }
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
-        public string PassWordHash { get; set; }
+        public string PasswordHash { get; set; }
        
-        public bool Remain_SignedIn { get; set; } = false;
+        public bool Remain_SignedIn { get; set; }
 
         public PrimaryUser ToPrimaryUser(Roles role)
         {
             return new PrimaryUser()
             {
-                Id = Id,
+                Id = ModelId,
                 First_Name = First_Name,
                 Last_Name = Last_Name,
                 Email = Email,
-                PasswordHash = PassWordHash,
+                PasswordHash = PasswordHash,
                
                 roles = role,
                 Remain_SignedIn = Remain_SignedIn
@@ -50,11 +50,12 @@ namespace Entities.DTOs
         {
             return new PrimaryUser()
             {
-                Id = Id,
+                Id = ModelId,
                 First_Name = First_Name,
                 Last_Name = Last_Name,
                 Email = Email,
-                PasswordHash = PassWordHash,
+                PasswordHash = PasswordHash,
+                Remain_SignedIn= Remain_SignedIn
                 
 
 

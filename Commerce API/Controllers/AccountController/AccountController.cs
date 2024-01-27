@@ -53,7 +53,7 @@ namespace Commerce_API.Controllers.AccountController
             {
                 return BadRequest("Empty Request");
             }
-            signin.Id = new Guid();
+            signin.ModelId = new Guid();
             try
             {
                 await _signinManager.SignIn(signin);
@@ -80,9 +80,25 @@ namespace Commerce_API.Controllers.AccountController
         [Route("{id}")]
         public async Task<ActionResult<string>> AccountUpdate(string id, SignInDTO user)
         {
+            if (user == null)
+            {
+                return BadRequest("User is null");
+            }
             await _updateAccountManager.UpdateUser(Guid.Parse(id), user);
             return id;
 
         }
+
+        [HttpDelete("{Id}")]
+        public async Task<ActionResult<bool>> DeleteAccount(Guid Id)
+        {
+            if (Id == null)
+            {
+                return BadRequest("Id cant be null...");
+            }
+            await _deleteAccountManager.DeleteAccount(Id);
+            return true;
+        }
+        
     }
 }

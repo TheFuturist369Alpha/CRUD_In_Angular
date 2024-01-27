@@ -33,6 +33,7 @@ builder.Services.AddCors(options =>
     {
         build.WithOrigins(builder.Configuration.GetSection("AllowedOrigins").Get<string[]>());
         build.WithHeaders("Authorization", "origin", "accept", "content-type");
+        build.WithMethods("GET", "POST", "PUT", "DELETE");
     });
 
 });

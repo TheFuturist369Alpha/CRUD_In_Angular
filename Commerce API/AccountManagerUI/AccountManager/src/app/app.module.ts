@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { AccountComponent } from './account/account.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DisableControlDirective } from './directives/disable-control.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AccountComponent
+    AccountComponent,
+    DisableControlDirective
   ],
   imports: [
     BrowserModule,
