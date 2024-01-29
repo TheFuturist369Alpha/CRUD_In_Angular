@@ -31,8 +31,4 @@
     <ProjectReference Include="..\UnitOfWork\UnitOfWork.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="AccountManagerUI\" />
-  </ItemGroup>
-
 </Project>

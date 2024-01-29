@@ -18,10 +18,7 @@ export class AccountComponent {
 
   constructor(private service: AccountServiceService) {
     this.postAccountForm = new FormGroup({
-      first_Name: new FormControl(null, [Validators.required]),
-      last_Name: new FormControl(null, [Validators.required]),
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      passwordHash: new FormControl(null, [Validators.required, Validators.minLength(8)])
+      
     });
 
     this.putAccountForm = new FormGroup({
@@ -32,23 +29,26 @@ export class AccountComponent {
   private  Onload() {
     this.service.GetAccounts().subscribe({
       next: (response: Models[]) => {
-        this.accounts = response;
+        this.service.accounts = response;
+        this.accounts = this.service.accounts;
         console.log(this.accounts[0]);
         console.log(this.accounts[1].email);
         console.log((this.accounts[1]).modelId);
         console.log((this.accounts[1]).remain_SignedIn);
-        
-        this.accounts.forEach(account => {
-          (this.putAccountForm.get("Accounts") as FormArray).push(new FormGroup({
-            modelId: new FormControl(account.modelId, [Validators.required]),
-            first_Name: new FormControl({ value: account.first_Name, disabled:true }, [Validators.required]),
-            last_Name: new FormControl({ value: account.last_Name, disabled: true }, [Validators.required]),
-            email: new FormControl({ value: account.email, disabled: true }, [Validators.required]),
-            passwordHash: new FormControl({ value: account.passwordHash, disabled: true }, [Validators.required]),
-            remain_SignedIn: new FormControl({ value: account.remain_SignedIn, disabled: true }, [Validators.required]),
 
-          }));
-        });
+          this.accounts.forEach(account => {
+            (this.putAccountForm.get("Accounts") as FormArray).push(new FormGroup({
+              modelId: new FormControl(account.modelId, [Validators.required]),
+              first_Name: new FormControl({ value: account.first_Name, disabled: true }, [Validators.required]),
+              last_Name: new FormControl({ value: account.last_Name, disabled: true }, [Validators.required]),
+              email: new FormControl({ value: account.email, disabled: true }, [Validators.required]),
+              passwordHash: new FormControl({ value: account.passwordHash, disabled: true }, [Validators.required]),
+              remain_SignedIn: new FormControl({ value: account.remain_SignedIn, disabled: true }, [Validators.required]),
+
+            }));
+          });
+          
+        
         
         
        
@@ -65,10 +65,7 @@ export class AccountComponent {
     this.Onload();
   }
 
-  get postAccountControl(): any {
-    return [ this.postAccountForm.controls['first_Name'],  this.postAccountForm.controls['last_Name'],
-       this.postAccountForm.controls['email'],  this.postAccountForm.controls['passwordHash']];
-  }
+
 
 
   public onEdit(acc: Models) {
@@ -94,39 +91,7 @@ export class AccountComponent {
    
   }
 
-  public OnSubmit() {
-    this.isFormSubmitted = true;
-    
-    console.log(this.postAccountForm.value+" from sunscribe");
-    this.service.PostAccount(this.postAccountForm.value).subscribe({
-      next: (response: Models) => {
-        this.accoutId = null;
-        console.log(response);
-        this.accounts.push(new Models(response.modelId, response.first_Name, response.passwordHash, response.last_Name, response.email, response.remain_SignedIn));
-        (this.putAccountForm.get("Accounts") as FormArray).push(new FormGroup({
-          modelId: new FormControl(response.modelId, [Validators.required]),
-          first_Name: new FormControl({ value: response.first_Name, disabled: true }, [Validators.required]),
-          last_Name: new FormControl({ value: response.last_Name, disabled: true }, [Validators.required]),
-          email: new FormControl({ value: response.email, disabled: true }, [Validators.required]),
-          passwordHash: new FormControl({ value: response.passwordHash, disabled: true }, [Validators.required]),
-          remain_SignedIn: new FormControl({ value: response.remain_SignedIn, disabled: true }, [Validators.required])
-        }));
-        
-        this.postAccountForm.reset();
-        this.isFormSubmitted = false;
-        this.Onload();
-      },
-
-      error: (errors: any) => {
-        console.log(errors);
-      },
-
-      complete: () => { }
-    });
-    console.log(this.accoutId);
-
-    
-  }
+  
 
   public onDelete(num: number) {
     this.accoutId = null;

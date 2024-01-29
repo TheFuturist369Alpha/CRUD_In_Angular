@@ -7,12 +7,14 @@ import { AccountComponent } from './account/account.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DisableControlDirective } from './directives/disable-control.directive';
+import { CreateAccountComponent } from './create-account/create-account.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AccountComponent,
-    DisableControlDirective
+    DisableControlDirective,
+    CreateAccountComponent
   ],
   imports: [
     BrowserModule,

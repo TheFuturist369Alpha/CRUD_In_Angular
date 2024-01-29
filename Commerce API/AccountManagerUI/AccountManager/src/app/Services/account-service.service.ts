@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Models } from '../Entities/models';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { FormArray, FormGroup } from '@angular/forms';
+
 
 const domain: string = "https://localhost:7277/api/v1/Account";
 @Injectable({
@@ -9,7 +11,10 @@ const domain: string = "https://localhost:7277/api/v1/Account";
 })
 
 export class AccountServiceService {
+  private dataSource: BehaviorSubject<FormGroup | null> = new BehaviorSubject<FormGroup | null>(null);
+  public currentData = this.dataSource.asObservable;
   accounts: Models[] = [];
+  public isSubmitted: boolean = false;
   constructor(private httpClient:HttpClient) {
   
   }
@@ -38,4 +43,13 @@ export class AccountServiceService {
     return this.httpClient.delete<boolean>(`${domain}/${id}`,{ headers: headers });
 
   }
+
+  public AddToTable(newForm: FormGroup) {
+    this.dataSource.next(newForm);
+  }
+
+  public Push(forms: FormArray, group: FormGroup) {
+    forms.push(group);
+  }
+
 }
