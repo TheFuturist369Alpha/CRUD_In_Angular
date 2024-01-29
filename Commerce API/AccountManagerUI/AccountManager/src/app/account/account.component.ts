@@ -75,10 +75,11 @@ export class AccountComponent {
     this.accoutId = acc.modelId;
   }
   public onUpgrade(i: number) {
+    this.accoutId = null;
     console.log((this.putAccountForm.get("Accounts") as FormArray).controls[i].value);
     this.service.UpdateAccount((this.putAccountForm.get("Accounts") as FormArray).controls[i].value).subscribe({
       next: (response: string) => {
-         this.accoutId = null;
+         
         console.log(this.accoutId);
         (this.putAccountForm.get("Accounts") as FormArray).controls[i].reset((this.putAccountForm.get("Accounts") as FormArray).controls[i].value);
       
@@ -89,27 +90,31 @@ export class AccountComponent {
       complete: () => { }
 
     });
-
+    alert(`${this.accounts[i].first_Name}'s account has been upgraded'`);
    
   }
 
   public OnSubmit() {
     this.isFormSubmitted = true;
+    
     console.log(this.postAccountForm.value+" from sunscribe");
     this.service.PostAccount(this.postAccountForm.value).subscribe({
       next: (response: Models) => {
+        this.accoutId = null;
         console.log(response);
         this.accounts.push(new Models(response.modelId, response.first_Name, response.passwordHash, response.last_Name, response.email, response.remain_SignedIn));
         (this.putAccountForm.get("Accounts") as FormArray).push(new FormGroup({
           modelId: new FormControl(response.modelId, [Validators.required]),
           first_Name: new FormControl({ value: response.first_Name, disabled: true }, [Validators.required]),
           last_Name: new FormControl({ value: response.last_Name, disabled: true }, [Validators.required]),
-          email: new FormControl({ value: response, disabled: true }, [Validators.required]),
+          email: new FormControl({ value: response.email, disabled: true }, [Validators.required]),
           passwordHash: new FormControl({ value: response.passwordHash, disabled: true }, [Validators.required]),
           remain_SignedIn: new FormControl({ value: response.remain_SignedIn, disabled: true }, [Validators.required])
         }));
+        
         this.postAccountForm.reset();
         this.isFormSubmitted = false;
+        this.Onload();
       },
 
       error: (errors: any) => {
@@ -118,11 +123,13 @@ export class AccountComponent {
 
       complete: () => { }
     });
+    console.log(this.accoutId);
 
     
   }
 
   public onDelete(num: number) {
+    this.accoutId = null;
     this.service.DeleteAccount(((this.putAccountForm.get("Accounts") as FormArray).controls[num].value as Models).modelId).subscribe(
       {
 
