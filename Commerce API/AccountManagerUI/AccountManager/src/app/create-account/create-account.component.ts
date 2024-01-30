@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class CreateAccountComponent {
   public postAccountForm: FormGroup;
-  public isFormSubmitted: boolean = this.service.isSubmitted;
+  public isFormSubmitted: boolean =false;
   public constructor(private service: AccountServiceService, private router: Router) {
     this.postAccountForm = new FormGroup({
       first_Name: new FormControl(null, [Validators.required]),
@@ -27,19 +27,17 @@ export class CreateAccountComponent {
     this.postAccountForm.controls['email'], this.postAccountForm.controls['passwordHash']];
   }
 
+  public onInit() {
+    this.postAccountForm.reset();
+    this.isFormSubmitted = false;
+  }
+
   public OnSubmit() {
     this.service.PostAccount(this.postAccountForm.value).subscribe({
       next: (response: Models) => {
-        this.service.accounts.push(response);
-        this.service.AddToTable(new FormGroup({
-          first_Name: new FormControl(response.first_Name, [Validators.required]),
-          last_Name: new FormControl(response.last_Name, [Validators.required]),
-          email: new FormControl(response.email, [Validators.required, Validators.email]),
-          passwordHash: new FormControl(response.passwordHash, [Validators.required, Validators.minLength(8)])
+        
 
-        }));
-        this.postAccountForm.reset();
-        this.service.isSubmitted = true;
+        this.isFormSubmitted = true;
 
       },
 
@@ -52,6 +50,8 @@ export class CreateAccountComponent {
 
 
     });
+
+  
     this.router.navigate(['/See Table']);
   }
 

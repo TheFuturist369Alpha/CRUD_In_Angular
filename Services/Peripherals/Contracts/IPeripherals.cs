@@ -11,6 +11,6 @@ namespace Services.Peripherals.Contracts
 {
     public interface IPeripherals
     {
-        public Task<List<UserToString>> GetUsers();
+        public Task<List<UserToString>?> GetUsers();
     }
 }

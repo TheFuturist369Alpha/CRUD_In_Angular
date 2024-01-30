@@ -18,7 +18,7 @@ namespace Services.Peripherals.Services
             this._repo = _repo;
         }
 
-        public async Task<List<UserToString>> GetUsers()
+        public async Task<List<UserToString>?> GetUsers()
         {
             return await _repo.GetAllUsers();
         }
